@@ -1,0 +1,71 @@
+How to Install OsourCL
+1. Preparation — Install Dependencies
+bashpip install cryptography aiohttp
+
+2. Create a Folder & Place the File
+C_OsourCL/
+└── OsourCL.py ← place the file here
+Or you can place it in any folder, for example, D:\OsourCL\ on Windows or ~/OsourCL/ on Linux/Mac.
+
+3. Run for the First Time
+bashcd C_OsourCL
+python OsourCL.py
+The terminal will display:
+╔═ ... 
+║ OsourCL - Cloud Component Motherboard ║
+╚═════════════════════ ═════════════════════╝
+
+  ✅ New API Key Generated:
+
+  osourcl_Ex1WmHPsl3KTuMq5Zk5TRO...
+
+  ⚠️ Save this key!
+The C_OsourCL/ folder is automatically created and contains:
+C_OsourCL/
+├── cloud_storage/ ← where files are stored
+├── data/
+│ ├── api_keys.json ← API keys are stored here
+│ ├── config.json
+│ └── metrics.json
+├── logs/
+│ ├── osourcl.log
+│ ├── security.log
+│ └── audit.log
+└── backups/
+
+4. Use in Other Python Scripts
+pythonfrom OsourCL import OsourCL
+
+ocl = OsourCL()
+ocl.start()
+
+# Upload file
+meta = ocl.upload("file.bin")
+print(meta["id"]) # Use this ID for download
+
+# Download
+ocl.download(meta["id"], "output.bin")
+
+# Translate binary
+result = ocl.translate("program.exe", mode="both")
+
+# Connect EXE to cloud
+key = ocl.generate_api_key("app_name")
+ocl.connect_exe("program.exe", key)
+
+# Connect APK to cloud
+ocl.connect_apk("app.apk", key)
+Make sure OsourCL.py is in the same folder or add its path:
+pythonimport sys
+sys.path.insert(0, "C:/path/to/C_OsourCL")
+from OsourCL import OsourCL
+
+5. Check Status & Quota
+pythonocl = OsourCL()
+ocl.start()
+print(ocl.status()) # all system info
+print(ocl.get_quota()) # storage usage
+print(ocl.list_api_keys()) # list API keys
+
+System Requirements
+Item Minimum: Python 3.8+ RAM: 512 MB (for 10GB files using streaming), Disk space according to the file being stored (max 10GB), OS: Windows / Linux / macOS, Package cryptography, aio/http, Sonnet 4.6 Low, 10GB or higher
